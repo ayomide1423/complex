@@ -1,0 +1,28 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t king/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true king/react-test npm run test
+
+after_success:
+  - docker build -t king/multi-client ./client
+  - docker build -t king/multi-nginx ./nginx
+  - docker build -t king/multi-server ./server
+  - docker build -t king/multi-worker ./worker
+#  Log into docker CLI - Create Environment Variables in TravisCI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take all images and push to Dockerhub
+  - docker push king/multi-client
+  - docker push king/multi-nginx
+  - docker push king/multi-server
+  - docker push king/multi-worker
+
+
+  
+  
