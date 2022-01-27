@@ -18,10 +18,10 @@ after_success:
 #  Log into docker CLI - Create Environment Variables in TravisCI
   - sudo echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --password-stdin
 # Take all images and push to Dockerhub
-  - docker push king/multi-client
-  - docker push king/multi-nginx
-  - docker push king/multi-server
-  - docker push king/multi-worker
+  - docker push king/multi-client:latest
+  - docker push king/multi-nginx:latest
+  - docker push king/multi-server:latest
+  - docker push king/multi-worker:latest
 
 
   
