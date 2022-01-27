@@ -16,7 +16,7 @@ after_success:
   - docker build -t king/multi-server ./server
   - docker build -t king/multi-worker ./worker
 #  Log into docker CLI - Create Environment Variables in TravisCI
-  - sudo echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take all images and push to Dockerhub
   - docker push king/multi-client
   - docker push king/multi-nginx
