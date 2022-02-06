@@ -5,23 +5,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t osakiminky/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t ayomide/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true osakiminky/react-test npm run test
+  - docker run -e CI=true ayomide/react-test npm run test
 
 after_success:
-  - docker build -t osakiminky/multi-client ./client
-  - docker build -t osakiminky/multi-nginx ./nginx
-  - docker build -t osakiminky/multi-server ./server
-  - docker build -t osakiminky/multi-worker ./worker
+  - docker build -t ayomide/multi-client ./client
+  - docker build -t ayomide/multi-nginx ./nginx
+  - docker build -t ayomide/multi-server ./server
+  - docker build -t ayomide/multi-worker ./worker
 #  Log into docker CLI - Create Environment Variables in TravisCI
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --password-stdin
 # Take all images and push to Dockerhub
-  - docker push osakiminky/multi-client
-  - docker push osakiminky/multi-nginx
-  - docker push osakiminky/multi-server
-  - docker push osakiminky/multi-worker
+  - docker push ayomide/multi-client
+  - docker push ayomide/multi-nginx
+  - docker push ayomide/multi-server
+  - docker push ayomide/multi-worker
 
 deploy:
   provider: elasticbeanstalk
@@ -34,5 +34,3 @@ deploy:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  
-  
